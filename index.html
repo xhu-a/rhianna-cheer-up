@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>for Rhianna</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #ff6b9d;
+      background-image:
+        radial-gradient(circle at 20% 30%, #ff8fab 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, #ff4081 0%, transparent 50%),
+        radial-gradient(circle at 50% 10%, #ffb3c6 0%, transparent 40%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Nunito', sans-serif;
+      position: relative;
+      overflow: hidden;
+      padding: 40px 20px;
+    }
+
+    .floaty {
+      position: absolute;
+      animation: floatUp linear infinite;
+      opacity: 0;
+      font-size: 22px;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(-20vh) rotate(15deg); opacity: 0; }
+    }
+
+    #screen1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .for-tag {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #fff;
+      opacity: 0.85;
+    }
+
+    #typewriter-wrap {
+      font-family: 'Pacifico', cursive;
+      font-size: 48px;
+      color: #fff;
+      text-shadow: 3px 3px 0px #c0004a, 5px 5px 0px rgba(0,0,0,0.1);
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+    }
+
+    #cursor {
+      display: inline-block;
+      width: 4px;
+      height: 48px;
+      background: #fff;
+      margin-left: 4px;
+      border-radius: 2px;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    #click-btn {
+      display: none;
+      margin-top: 10px;
+      padding: 16px 44px;
+      background: #fff;
+      color: #c0004a;
+      border: none;
+      border-radius: 50px;
+      font-size: 17px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      cursor: pointer;
+      animation: bob 1.8s ease-in-out infinite;
+      position: relative;
+    }
+
+    #click-btn::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.3);
+      animation: ripple 1.8s ease-in-out infinite;
+    }
+
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    @keyframes ripple { 0%,100%{transform:scale(1);opacity:0.4} 50%{transform:scale(1.06);opacity:0} }
+
+    #click-btn:hover { background: #ffe0ea; }
+
+    #screen2 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    #present-wrap {
+      position: relative;
+      width: 200px;
+      height: 220px;
+      cursor: pointer;
+    }
+
+    .p-box {
+      position: absolute;
+      bottom: 0; left: 20px;
+      width: 160px; height: 140px;
+      background: #fff;
+      border-radius: 6px;
+      border: 3px solid #ffb3c6;
+    }
+
+    .p-stripes {
+      position: absolute;
+      bottom: 0; left: 20px;
+      width: 160px; height: 140px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,107,157,0.15) 10px, rgba(255,107,157,0.15) 20px);
+    }
+
+    .p-ribbon-v {
+      position: absolute;
+      bottom: 0; left: 93px;
+      width: 18px; height: 140px;
+      background: #ff6b9d; border-radius: 2px;
+    }
+
+    .p-ribbon-h {
+      position: absolute;
+      bottom: 60px; left: 20px;
+      width: 160px; height: 18px;
+      background: #ff6b9d; border-radius: 2px;
+    }
+
+    .p-lid {
+      position: absolute;
+      bottom: 130px; left: 14px;
+      width: 172px; height: 48px;
+      background: #fff;
+      border-radius: 6px;
+      border: 3px solid #ffb3c6;
+      transition: all 0.7s cubic-bezier(0.34,1.4,0.64,1);
+      transform-origin: center bottom;
+      z-index: 2;
+    }
+
+    .p-lid.open { transform: translateY(-90px) rotate(-20deg) scale(0.9); opacity: 0; }
+
+    .p-lid-ribbon-v { position: absolute; left: 77px; top: 0; width: 18px; height: 48px; background: #ff6b9d; border-radius: 2px; }
+    .p-lid-ribbon-h { position: absolute; left: 0; top: 15px; width: 172px; height: 18px; background: #ff6b9d; border-radius: 2px; }
+
+    .p-bow {
+      position: absolute;
+      top: 4px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 44px;
+      z-index: 3;
+      transition: all 0.7s;
+    }
+
+    .p-bow.open { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+
+    .tap-hint {
+      font-size: 14px; color: #fff; font-weight: 700;
+      letter-spacing: 1px; opacity: 0.9;
+      animation: bob 2s ease-in-out infinite;
+    }
+
+    #screen3 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      width: 100%;
+      padding-bottom: 10px;
+    }
+
+    .msg-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 24px 28px;
+      max-width: 360px;
+      text-align: center;
+      position: relative;
+      border: 3px solid #ffb3c6;
+    }
+
+    .msg-card::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 28px;
+      border: 2px dashed rgba(255,255,255,0.5);
+    }
+
+    .msg-name {
+      font-family: 'Pacifico', cursive;
+      font-size: 28px; color: #c0004a; margin-bottom: 12px;
+    }
+
+    .msg-text {
+      font-size: 15px; color: #5a0020; line-height: 1.8; font-weight: 700;
+    }
+
+    .msg-sub {
+      margin-top: 12px; font-size: 13px; color: #d4537e; font-weight: 700; letter-spacing: 1px;
+    }
+
+    #stage {
+      width: 100%;
+      max-width: 480px;
+      height: 120px;
+      position: relative;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .music-note {
+      position: absolute;
+      font-size: 20px;
+      animation: noteFloat 2s ease-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes noteFloat {
+      0%   { transform: translateY(0) scale(0.5); opacity: 0; }
+      20%  { opacity: 1; }
+      100% { transform: translateY(-80px) scale(1); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <span class="floaty" style="left:6%;animation-duration:6s;animation-delay:0s;">&#10084;&#65039;</span>
+  <span class="floaty" style="left:20%;animation-duration:8s;animation-delay:1.2s;">&#128149;</span>
+  <span class="floaty" style="left:38%;animation-duration:7s;animation-delay:2s;">&#10084;&#65039;</span>
+  <span class="floaty" style="left:55%;animation-duration:5.5s;animation-delay:0.4s;">&#128149;</span>
+  <span class="floaty" style="left:70%;animation-duration:9s;animation-delay:3s;">&#10084;&#65039;</span>
+  <span class="floaty" style="left:85%;animation-duration:6.5s;animation-delay:1.8s;">&#128149;</span>
+  <span class="floaty" style="left:47%;animation-duration:7.5s;animation-delay:4s;">&#10084;&#65039;</span>
+  <span class="floaty" style="left:14%;animation-duration:5s;animation-delay:2.8s;">&#128149;</span>
+
+  <div id="screen1">
+    <div class="for-tag">this is for</div>
+    <div id="typewriter-wrap">
+      <span id="typed"></span><span id="cursor"></span>
+    </div>
+    <button id="click-btn" onclick="goPresent()">click here</button>
+  </div>
+
+  <div id="screen2">
+    <div id="present-wrap" onclick="openGift()">
+      <div class="p-bow" id="bow">&#127873;</div>
+      <div class="p-lid" id="lid">
+        <div class="p-lid-ribbon-v"></div>
+        <div class="p-lid-ribbon-h"></div>
+      </div>
+      <div class="p-box"></div>
+      <div class="p-stripes"></div>
+      <div class="p-ribbon-v"></div>
+      <div class="p-ribbon-h"></div>
+    </div>
+    <div class="tap-hint">tap to open</div>
+  </div>
+
+  <div id="screen3">
+    <div class="msg-card">
+      <div class="msg-name">Rhianna</div>
+      <div class="msg-text">
+        cheer up girl, don't let today mess with you.<br><br>
+        you're way too strong for that — shake it off,
+        take a breath, and remember your real ones
+        are always here for you.
+      </div>
+      <div class="msg-sub">we got you always</div>
+    </div>
+
+    <div id="stage">
+      <span class="music-note" style="left:30%;bottom:80px;animation-delay:0s;">&#9835;</span>
+      <span class="music-note" style="left:55%;bottom:70px;animation-delay:1.2s;">&#9834;</span>
+      <span class="music-note" style="left:70%;bottom:90px;animation-delay:0.6s;">&#9835;</span>
+    </div>
+  </div>
+
+  <script>
+    const name = "Rhianna";
+    let idx = 0;
+
+    function type() {
+      if (idx < name.length) {
+        document.getElementById('typed').textContent += name[idx];
+        idx++;
+        setTimeout(type, Math.random() * 90 + 70);
+      } else {
+        document.getElementById('cursor').style.display = 'none';
+        setTimeout(() => {
+          document.getElementById('click-btn').style.display = 'block';
+        }, 300);
+      }
+    }
+
+    function goPresent() {
+      document.getElementById('screen1').style.display = 'none';
+      document.getElementById('screen2').style.display = 'flex';
+    }
+
+    function openGift() {
+      document.getElementById('lid').classList.add('open');
+      document.getElementById('bow').classList.add('open');
+      setTimeout(() => {
+        document.getElementById('screen2').style.display = 'none';
+        document.getElementById('screen3').style.display = 'flex';
+      }, 700);
+    }
+
+    setTimeout(type, 500);
+  </script>
+
+</body>
+</html>
